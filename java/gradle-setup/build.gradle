@@ -1,0 +1,30 @@
+buildscript {
+  repositories {
+    maven { url 'https://plugins.gradle.org/m2/' }
+  }
+  dependencies {
+    classpath 'com.netflix.nebula:gradle-ospackage-plugin:8.3.0'
+  }
+}
+
+apply plugin: 'java-library'
+apply plugin: 'application'
+apply plugin: 'nebula.ospackage-application'
+
+group = 'org.swimos'
+description = 'Real-time Transit App'
+version = project.property('application.version')
+mainClassName = 'swim.transit.TransitPlane'
+ext.moduleName = 'swim.transit'
+ext.swimVersion=project.property('swim.version')
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  implementation group: 'org.swimos', name: 'swim-xml', version: swimVersion
+  api group: 'org.swimos', name: 'swim-api', version: swimVersion
+  implementation group: 'org.swimos', name: 'swim-server', version: swimVersion
+  runtimeOnly group: 'org.swimos', name: 'swim-meta', version: swimVersion
+}
